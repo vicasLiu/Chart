@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Arc</title>
+		<meta name="generator" content="Studio 3 http://aptana.com/">
+		<meta name="author" content="vliu4">
+		<!-- Date: 2012-12-24 -->
+	</head>
+	<script src="../jslib/zepto.js"></script>
+	<script src="../basicJS/chartRender.js"></script>
+	<script>
+		$(function(){
+			var data = [
+			    {
+			        "201201": "434.92", 
+			        "201202": "892.56", 
+			        "201203": "966.57", 
+			        "201204": "831.44", 
+			        "201205": "360.13", 
+			        "201206": "605.55", 
+			        "201207": "686.39", 
+			        "201208": "721.03", 
+			        "201209": "682.45", 
+			        "201210": "967.83", 
+			        "201211": "961", 
+			        "201212": "212.56", 
+			        "ITEMNAME": "今年实际+预测"
+			    }, 
+			    {
+			        "201201": "443.76", 
+			        "201202": "910.69", 
+			        "201203": "986.19", 
+			        "201204": "848.32", 
+			        "201205": "360.13", 
+			        "201206": "605.55", 
+			        "201207": "673.64", 
+			        "201208": "236.62", 
+			        "201209": "848.83", 
+			        "201210": "222.37", 
+			        "201211": "614.35", 
+			        "201212": "216.88", 
+			        "ITEMNAME": "今年预算"
+			    }, 
+			    {
+			        "201201": "439.32", 
+			        "201202": "901.58", 
+			        "201203": "976.33", 
+			        "201204": "839.84", 
+			        "201205": "360.13", 
+			        "201206": "605.55", 
+			        "201207": "567.89", 
+			        "201208": "685.79", 
+			        "201209": "836.45", 
+			        "201210": "760.55", 
+			        "201211": "313.17", 
+			        "201212": "214.71", 
+			        "ITEMNAME": "去年实际"
+			    }
+			];
+			var newData = [];
+			var name = [];
+			for( var i = 0; i < data.length; i++ ) {
+				var temp = data[i];
+				var index = 0;
+				var _newData = [];
+				for( var k in temp ) {
+					if( k != 'ITEMNAME' ) {
+						_newData.push([index, k, Number(temp[k])]);
+					}else{
+						name.push(temp[k]);
+					}
+					index++;
+				}
+				newData.push({
+					dataId : "data"+i,
+				  	xId : "x1",
+				  	yId : "y1",
+				  	data : _newData
+				});
+			}
+			var chart = new LChart.Chart($("#arc"));
+			var op = {
+				type : "series",
+				data : newData,
+				charts : [{
+					dataId : "data0",
+					type : "line",
+					name : name[0],
+					style : {
+						show: true,
+						areaLine:true,
+						lineWidth: 2,			 
+						lineColor: "#00cc2a",
+						fillColor:"#00cc2a" ,
+						hoverColor: "#00cc2a",
+						areaColor: {
+							startColor: "#5010dc3a",
+							stopColor: "#0010dc3a"
+						}
+					}
+				},{
+					dataId : "data1",
+					type : "line",
+					name : name[1],
+					style : {
+						show: true,
+						areaLine:true,
+						lineWidth: 2,			 
+						lineColor: "#0084f2",
+						fillColor:"#0084f2" ,
+						hoverColor: "#0084f2",
+						areaColor: {
+							startColor: "#502896f1",
+							stopColor: "#002896f1"
+						}
+					}
+				},{
+					dataId : "data2",
+					type : "line",
+					name : name[2],
+					style : {
+						show: true,
+						areaLine:true,
+						lineWidth: 2,			 
+						lineColor: "#ff9100",
+						fillColor:"#ff9100" ,
+						hoverColor: "#ff9100",
+						areaColor: {
+							startColor: "#50fcb85e",
+							stopColor: "#00fcb85e"
+						}
+					}
+				}],
+				coordinate : {
+					xaxis : [{
+						id : "x1",
+						width : 25,
+						type : "customer",
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+						labelAlign : "left"
+					}],
+					yaxis : [{
+						id : "y1",
+						width : 25,
+						show : false,
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+						labelAlign : "lineCenter"
+					}],
+					grid : {
+						gridY : true,
+						gridX : false
+					}
+				},
+				Legend : {
+					id : "legend",
+					show : true,
+					height : 30,
+					width : 100,
+					position : "top",
+					align : "center",
+					valueWidth : 50,
+					css : {
+						font: "normal 14px Arial, Helvetica, sans-serif"
+					},
+					icon : {
+						type : "circle",
+						radius : 5
+					}
+				},
+				ToolTips : {
+					show : true,
+					id : "tooltips",
+					callback : function( data ) {
+						var obj = data.objs;
+						for( var i = 0; i < obj.length; i++ ) {
+							var _o = obj[i][0];
+							var className = _o.dataId;
+							$("#arc").find("."+className).html((_o.yvalue));
+						}
+					}
+				},
+				CrossHair : {
+					show : true,
+					id : "crosshair"
+				},
+				TrackingBall : {
+					show : true,
+					id : "trackingball"
+				}
+			};
+			chart.setOptions(op);
+			chart.draw();
+			chart.setDefaultData({
+				"dataId" : "data1",
+				"index" : 0
+			});
+			for( var i = 0; i < newData.length; i++ ) {
+				var className = newData[i].dataId;
+				var value = newData[i].data[0][2];
+				$("#arc").find("."+className).html((value));
+			}
+		});
+	</script>
+	<body>
+		<div id="arc" style="position:absolute; width: 100%; height: 50%;">
+			
+		</div>
+	</body>
+</html>

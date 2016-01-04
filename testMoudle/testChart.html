@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Arc</title>
+    <meta name="generator" content="Studio 3 http://aptana.com/">
+    <meta name="author" content="vliu4">
+    <!-- Date: 2012-12-24 -->
+</head>
+<script src="../jslib/zepto.js"></script>
+<script src="../basicJS/chart.js"></script>
+<script src="../basicJS/chartRender.js"></script>
+<script>
+    $(function(){
+        var chart = new Chart($("#arc"));
+        var op = {
+            Data : {
+                row : 'date',
+                col : ['qbudget',"actual"]
+            },
+            chart : {
+                type : ["barstacked"],
+                barstacked : ['qbudget',"actual"],
+                color : ['#00d435']
+            },
+            xaxis : {
+                filed : 'date',
+                format : ''
+            },
+            yaxis : {
+                left : ''
+            }
+        };
+        var data = [
+            {
+                date : "1月",
+                qbudget : 1873.63954910079,
+                actual : 867.89,
+                tbudget : 967.89,
+                tactual : 900.89
+            },
+            {
+                date : "2月",
+                qbudget : 236.62071747313595,
+                actual : 685.7947252542051,
+                tbudget : 385.794725254205,
+                tactual : 0
+            },
+            {
+                date : "3月",
+                qbudget : 848.8264626209684,
+                actual : 836.4545508730425,
+                tbudget : 836.4545508730425,
+                tactual : 0
+            },
+            {
+                date : "4月",
+                qbudget : 222.37463206949158,
+                actual : 760.5527504688336,
+                tbudget : 760.5527504688336,
+                tactual : 0
+            },
+            {
+                date : "5月",
+                qbudget : 914.351325612959,
+                actual : 313.17362249033187,
+                tbudget : 513.173622490332,
+                tactual : 0
+            },
+            {
+                date : "6月",
+                qbudget : 516.880282464699,
+                actual : 214.7114796400525,
+                tbudget : 214.7114796400525,
+                tactual : 0
+            },
+            {
+                date : "7月",
+                qbudget : 843.755724817535,
+                actual : 439.31816756935984,
+                tbudget : 439.31816756935984,
+                tactual : 0
+            },
+            {
+                date : "8月",
+                qbudget : 910.6858782269436,
+                actual : 901.5790194446741,
+                tbudget : 901.5790194446741,
+                tactual : 0
+            },
+            {
+                date : "9月",
+                qbudget : 986.191514120537,
+                actual : 976.3295989793316,
+                tbudget : 976.3295989793316,
+                tactual : 0
+            },
+            {
+                date : "10月",
+                qbudget : 1048.32496694189,
+                actual : 839.8417172724711,
+                tbudget : 839.8417172724711,
+                tactual : 0
+            },
+            {
+                date : "11月",
+                qbudget : 660.133160922024,
+                actual : 360.1331609220239,
+                tbudget : 360.1331609220239,
+                tactual : 0
+            },
+            {
+                date : "12月",
+                qbudget : 605.547015617103,
+                actual : 605.547015617103,
+                tbudget : 605.547015617103,
+                tactual : 0
+            }
+        ];
+        chart.setOptions(op);
+        chart.setData(data);
+        chart.draw();
+    });
+</script>
+<body>
+    <div id="arc" style="position:absolute; width: 80%; height: 50%;">
+
+    </div>
+</body>
+</html>

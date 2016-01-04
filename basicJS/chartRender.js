@@ -2501,7 +2501,6 @@ LChart.International.prototype = {
                 ca.push([e,temp]);
             }
         }
-        console.info(ca);
         return ca;
     };
     var calHourCal = function( s, v, e, f, p ) {
@@ -3118,7 +3117,7 @@ LChart.International.prototype = {
             return path;
         },
         drawPolygon : function( svgDoc, ptCollection, strokeWidth, strokeColor, fillColor ) {
-            this.drawPath(svgDoc, ptCollection, strokeWidth, strokeColor, fillColor, false);
+            this.drawPath(svgDoc, ptCollection, strokeWidth, strokeColor, fillColor, true);
         },
         drawBar : function( svgDoc, ptCollection, strokeWidth, strokeColor, fillColor ) {
             console.info(fillColor);
@@ -4211,9 +4210,6 @@ LChart.International.prototype = {
         },
         __filterXLabel = function( labels, hideIndex, align ) {
             var lastLabel = labels[labels.length-1];
-            if( labels.length < lastLabel.parent().parent().find(".textG").length ) {
-                return;
-            }
             var lastSLabel = labels[labels.length-2];
             var lx = Number(lastLabel.attr("x"));
             var lsx = Number(lastSLabel.attr("x"));
@@ -5384,7 +5380,6 @@ LChart.International.prototype = {
                 position: 2,
                 labelFormat: null,
                 calibration: null,
-                showAll : false,
                 labelPadding : {
                     left : 0,
                     top : 0
@@ -5635,7 +5630,7 @@ LChart.International.prototype = {
                 , color = "#000"
                 , chartObj = getChartObj(this.$pointer)
                 ;
-            var ct = this.$container;
+
             for( ; i < xaxis.length; i++ ) {
                 temp = xlines[i].xGap;
                 point = xlines[i].gridX;
@@ -5664,45 +5659,26 @@ LChart.International.prototype = {
                     }else if( gap == -1 ){
                         p = {
                             sx : point[j][0] - obj.w,
-                            y : obj.h,
+                            y : point[j][3]+obj.h,
                             ex : point[j][0]
                         };
                     }else{
                         p = __calLabelPosition(obj, gap, xaxis[i].labelAlign, point[j]);
                         p.sx += labelPadding.left;
-                        p.y = obj.h + labelPadding.top;
+                        p.y += labelPadding.top;
                         p.ex += labelPadding.left;
-                        p.w = obj.w;
                     }
                     ap.push(p);
                 };
                 oa = __isXOverlay(ap);
-                var cContainer = $(this.$container).find(".coordinateGraph");
                 for( var j = 0; j < ca.length; j++ ) {
-                    var gtext = CT.createGroup($(cContainer), "textG");
-                    if(ap[j] == undefined ) {
-                        break;
-                    }
-                    $(gtext).attr({
-                        "transform": "translate("+(ap[j].sx)+","+(chartObj.ROOTHEIGHT-xaxis[i].width+15)+") scale(1 1)"
-                    });
-                    var tctx = new Graphics(gtext);
-                    if( xaxis[i].showAll === true ) {
-                        labels.push($(tctx.drawText(textArry[j], 0, 0)).css(xaxis[i].labelCss).attr({"fill": color, "text-anchor":"end", "dy":".35em", "transform":"rotate(-45)"}));
-                    }else{
-                        if( $.inArray( j, oa ) == -1 || j == ca.length-1 ) {
-                            if(ap[j]) {
-                                labels.push($(tctx.drawText(textArry[j], 0, 0)).css(xaxis[i].labelCss).attr({"fill": color}));
-                            }
+                    if( $.inArray( j, oa ) == -1 || j == ca.length-1 ) {
+                        if(ap[j]) {
+                            labels.push($(ctx.drawText(textArry[j], ap[j].sx, ap[j].y)).css(xaxis[i].labelCss).attr("fill", color));
                         }
                     }
-
                 }
-                if( xaxis[i].showAll === true ) {
-                    __filterXLabel(labels, 1, xaxis[i].labelAlign);
-                }else{
-                    __filterXLabel(labels, 2, xaxis[i].labelAlign);
-                }
+                __filterXLabel(labels, 2, xaxis[i].labelAlign);
             };
             i = 0;
             for( ; i < yaxis.length; i++ ) {
@@ -6091,31 +6067,6 @@ LChart.International.prototype = {
                     };
                     return $.extend(true, {}, defaultOp, options);
                 };
-                var calThebarPoints = function(obj) {
-                    var style = obj.style;
-                    var orginPt = obj.pt;
-                    if( style.type == "bar" ) {
-                        var _tempDT = [];
-                        for( var i = 0; i < orginPt.length; i++ ) {
-                            console.info(orginPt[i]);
-                            if( i == 0 ) {
-                                _tempDT.push(orginPt[i]);
-                            }else if(i == orginPt.length -1 ) {
-                                _tempDT.push(orginPt[i]);
-                            } else{
-                                _tempDT.push({
-                                    x : orginPt[i].x,
-                                    y : orginPt[i-1].y
-                                });
-                                _tempDT.push(orginPt[i]);
-                            }
-                        }
-                        obj.pt = _tempDT;
-                    }else{
-                        _tempDT = obj.pt;
-                    }
-                    return _tempDT;
-                };
                 var calTheLinePoints = function(obj, yMapping, op){
                     //var op = lineObj.options;
                     if(op.areaLine){
@@ -6163,7 +6114,6 @@ LChart.International.prototype = {
                     if(pt == null || pt.length == 0){
                         return;
                     }
-                    pt = calThebarPoints(data);
                     graphic.drawPolyline(pt, op.lineWidth, JColor.parse(op.lineColor).toString());
                 };
                 var drawArea = function( obj, op ) {
@@ -7095,9 +7045,6 @@ LChart.International.prototype = {
                             });
                         }
                         for(var i = _l; i < ptdraw.length; i++){
-                            if( STACKINDEX == 0 && i == ptdraw.length-1 ) {
-                                break;
-                            }
                             _pt.push({
                                 x: ptdraw[i-1].x,
                                 y: ptdraw[i].y
@@ -9254,141 +9201,6 @@ LChart.International.prototype = {
         }
     };
     /****************END**************************/
-    /*****************Mind CHART*****************/
-    var MindChart = function( target, pointer ) {
-        this.$pointer = pointer;
-        var self = this;
-        this.container = target;
-        //this.chartPlace = $('<div class="chartPlace"></div>').appendTo(target);
-        //this.targetHolder = CT.create(this.chartPlace, "relative", 0, 0, target.width(), target.height());
-        //this.graphGroup = CT.createGroup(this.targetHolder, "mindChartGraph", "none", 0, "none");
-        //this.$ctx = new Graphics(this.graphGroup);
-        Publisher.subscribe("draw", function(){
-            self.draw();
-        }, self);
-    };
-    MindChart.prototype = {
-        getSubId : function() {
-            return this.$pointer;
-        },
-        setOptions : function( options ) {
-            this.options = options;
-        },
-        draw : function() {
-            var op = this.options, chartOp = op.chart;
-            var target = this.container;
-            var width = chartOp.width ? chartOp.width : target.width(),
-                height = chartOp.height ? chartOp.height : target.height();
-
-            var m = [20, 120, 20, 120],
-                w = 1280 - m[1] - m[3],
-                h = 800 - m[0] - m[2],
-                i = 0,
-                root;
-
-            root = op.data;
-            var targetDom = target[0];
-            var cluster = d3.layout.tree()
-                .size([h, w]);
-            var diagonal = d3.svg.diagonal().projection(function(d) { return [d.y, d.x]; });
-            var svg = d3.select(targetDom).append("svg:svg")
-                .attr("width", w + m[1] + m[3])
-                .attr("height", h + m[0] + m[2])
-                .append("svg:g")
-                .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
-
-            root.x0 = height / 2;
-            root.y0 = 0;
-            var tree = cluster, vis = svg;
-            //root.values = nest;
-            //root.values.forEach(toggleAll);
-            var nodes = cluster.nodes(root);
-            var links = cluster.links(nodes);
-            var link = svg.selectAll(".link")
-                .data(links)
-                .enter()
-                .append("path")
-                .attr("id", function(d){ return "link_"+ d.target.id})
-                .attr("class", "link")
-                .attr("fill", "none")
-                .attr("stroke", chartOp.lineColor)
-                .attr("stroke-width", function(d){
-                    var source = d.source;
-                    if( source.value != undefined ) {
-                        var w = (source.link / 100);
-                        if( w < 1.5 ) {
-                            w = 1.5;
-                        }else if( w > 10 ) {
-                            w = 10;
-                        }
-                        return w;
-                    }else{
-                        return 1.5;
-                    }
-                })
-                .attr("d", function( d ){
-                    //var source = d.source;
-                    return diagonal(d);
-                })
-                .on("mouseover", function(d){
-                    console.info(d);
-                    if( $.isFunction(chartOp.linkMousemove) ) {
-                        chartOp.linkMousemove(d);
-                    }
-                })
-                .on("click", function( d ){
-                    if( $.isFunction(chartOp.linkClick) ) {
-                        chartOp.linkClick(d);
-                    }
-                });
-
-
-            var node = svg.selectAll(".node")
-                .data(nodes)
-                .enter()
-                .append("g")
-                .attr("class", "node")
-                .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
-                .on("mouseover", function(d){
-                    console.info(d);
-                });
-
-            node.append("circle")
-                .attr("r", chartOp.radius)
-                .attr("stroke", chartOp.nodeStroke)
-                .attr("stroke-width", chartOp.nodeWidth)
-                .attr("fill", function( d ){
-                    //var source = d.source;
-                    var max = d.max;
-                    var value = d.value;
-                    var per = value / max;
-                    var color = "#fff";
-                    if( per >= 0.8 ) {
-                        color = "red";
-                    }else if( per < 0.8 && per >= 0.6 ) {
-                        color = "yellow";
-                    }
-                    return color;
-                })
-                .on("mouseover", function(d){
-                    console.info(d);
-                    if( $.isFunction(chartOp.nodeMousemove) ) {
-                        chartOp.nodeMousemove(d);
-                    }
-                })
-                .on("click", function( d ){
-                    if( $.isFunction(chartOp.nodeClick) ) {
-                        chartOp.nodeClick(d);
-                    }
-                });
-
-            node.append("text")
-                .attr("dx", function(d) { return d.children ? -8 : 8; })
-                .attr("dy", 3)
-                .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
-                .text(function(d) { return d.name; });
-        }
-    };
     var __resolveOptions = function( op ) {
         var l=0,r=0,t=0,b=0;
         for( var i in op ) {
@@ -9463,8 +9275,6 @@ LChart.International.prototype = {
                 this.chart = new Dashboard( this.$container, this.$pointer );
             }else if( op.type == "funnel" ) {
                 this.chart = new FunnelChart( this.$container, this.$pointer );
-            }else if( op.type == 'mind' ){
-                this.chart = new MindChart( this.$container, this.$pointer );
             }
             this.chart.setOptions(op);
             this.initComponents();

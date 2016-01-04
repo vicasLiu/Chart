@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Arc</title>
+		<meta name="generator" content="Studio 3 http://aptana.com/">
+		<meta name="author" content="vliu4">
+		<!-- Date: 2012-12-24 -->
+	</head>$
+	<script src="../jslib/zepto.js"></script>
+	<script src="../basicJS/chartRender.js"></script>
+	<script>
+		$(function(){
+			var chart = new LChart.Chart($("#arc"));
+			var op = {
+				type : "series",
+				data : [{
+			        dataId:"data1",
+				  	xId : "x1",
+				  	yId : "y1",
+			        data: [0]
+			
+			    },{
+			        dataId:"data2",
+				  	xId : "x1",
+				  	yId : "y1",
+			        data: [0]
+			
+			    },{
+			        dataId:"data3",
+				  	xId : "x1",
+				  	yId : "y1",
+			        data: [0]
+			
+			    },{
+			        dataId:"data4",
+				  	xId : "x1",
+				  	yId : "y1",
+			        data: [0]
+			
+			    }],
+				charts : [{
+					dataId : "data1",
+					type : "line",
+					name : "ChartLineDemo",
+					style : {
+						show: true,
+						areaLine:true,
+						lineWidth: 2,			 
+						lineColor: "#00d435",
+						fillColor:"#00d435" ,
+						hoverColor: "#00d435",
+						areaColor: {
+							startColor: "#5000d435",
+							stopColor: "#0000d435"
+						}
+					}
+				},{
+					dataId : "data2",
+					type : "line",
+					name : "ChartLineDemo",
+					style : {
+						show: true,
+						areaLine:true,
+						lineWidth: 2,			 
+						lineColor: "#00d435",
+						fillColor:"#00d435" ,
+						hoverColor: "#00d435",
+						areaColor: {
+							startColor: "#5000d435",
+							stopColor: "#0000d435"
+						}
+					}
+				},{
+					dataId : "data3",
+					type : "line",
+					name : "ChartLineDemo",
+					style : {
+						show: true,
+						areaLine:true,
+						lineWidth: 2,			 
+						lineColor: "#00d435",
+						fillColor:"#00d435" ,
+						hoverColor: "#00d435",
+						areaColor: {
+							startColor: "#5000d435",
+							stopColor: "#0000d435"
+						}
+					}
+				},{
+					dataId : "data4",
+					type : "line",
+					name : "ChartLineDemo",
+					style : {
+						show: true,
+						areaLine:true,
+						lineWidth: 2,			 
+						lineColor: "#00d435",
+						fillColor:"#00d435" ,
+						hoverColor: "#00d435",
+						areaColor: {
+							startColor: "#5000d435",
+							stopColor: "#0000d435"
+						}
+					}
+				}],
+				coordinate : {
+					xaxis : [{
+						id : "x1",
+						width : 25,
+						type : "dateTime",
+						startDate : Date.parse(2013,3,4),
+						interval : "1.m",
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+						labelAlign : "left"
+					}],
+					yaxis : [{
+						id : "y1",
+						width : 25,
+						show : false,
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+						labelAlign : "lineCenter",
+                        value : {
+                            first : 0,
+                            second : 100
+                        }
+					}],
+					grid : {
+						gridY : true,
+						gridX : false
+					}
+				},
+				Legend : {
+					id : "legend",
+					show : true,
+					height : 30,
+					width : 100,
+					position : "top",
+					align : "center",
+					css : {
+						font: "normal 14px Arial, Helvetica, sans-serif"
+					},
+					icon : {
+						type : "circle",
+						radius : 5
+					}
+				},
+				ToolTips : {
+					show : true,
+					id : "tooltips",
+					callback : function( data ) {
+						// console.info(data);
+					}
+				},
+				CrossHair : {
+					show : true,
+					id : "crosshair"
+				},
+				TrackingBall : {
+					show : true,
+					id : "trackingball"
+				}
+			};
+			chart.setOptions(op);
+			chart.draw();
+			var x = 9;
+			setInterval(function(){
+				var y = 100+Math.random()*100;
+				chart.realtimeRefresh( [{
+					data:[y], dataId: "data1"
+				},{
+					data:[y+10], dataId: "data2"
+				},{
+					data:[y+100], dataId: "data3"
+				},{
+					data:[y+20], dataId: "data4"
+				}], false );
+				x++;
+			},1000);
+		});
+	</script>
+	<body>
+		<div id="arc" style="position:absolute; width: 80%; height: 50%;">
+			
+		</div>
+	</body>
+</html>

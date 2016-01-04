@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Arc</title>
+		<meta name="generator" content="Studio 3 http://aptana.com/">
+		<meta name="author" content="vliu4">
+		<!-- Date: 2012-12-24 -->
+	</head>
+ 	<link href="../css/annotation.css" rel="stylesheet" type="text/css" />
+	<script src="../jslib/zepto.js"></script>
+	<script src="../basicJS/chartRender.js"></script>
+	<script>
+		$(function(){
+			var chart = new LChart.Chart($("#arc"));
+			var op = {
+				type : "series",
+				data : [{
+			        dataId:"data1",
+				  	xId : "x1",
+				  	yId : "y1",
+			        data: [[0,'',5],[1,'',25],[2,'',50],[3,'',120],[4,'',150],[5,'',200],[6,'',426],[7,'',660],[8,'',869],[9,'',1060],[10,'',1605],[11,'',2471],[12,'',3322],[13,'',4238],[14,'',5221],[15,'',6129],[16,'',7089],[17,'',8339],[18,'',9399],[19,'',10538],[20,'',11643],[21,'',13092],[22,'',14478],[23,'',15915],[24,'',17385],[25,'',19055],[26,'',21205],[27,'',23044],[28,'',25393],[29,'',27935],[30,'',30062],[31,'',32049],[32,'',33952],[33,'',35804],[34,'',37431],[35,'',39197],[36,'',45000],[37,'',43000],[38,'',41000],[39,'',39000],[40,'',37000],[41,'',35000],[42,'',33000],[43,'',31000],[44,'',29000],[45,'',27000],[46,'',25000],[47,'',24000],[48,'',23000],[49,'',22000],[50,'',21000],[51,'',20000],[52,'',19000],[53,'',18000],[54,'',18000],[55,'',17000],[56,'',16000]]
+			
+			      },
+				  {
+				  	dataId:"data2",
+				  	xId : "x1",
+				  	yId : "y1",
+				  	data:[[0,'',369],[1,'',640],[2,'',1005],[3,'',1436],[4,'',2063],[5,'',3057],[6,'',4618],[7,'',6444],[8,'',9822],[9,'',15468],[10,'',20434],[11,'',24126],[12,'',27387],[13,'',29459],[14,'',31056],[15,'',31982],[16,'',32040],[17,'',31233],[18,'',29224],[19,'',27342],[20,'',26662],[21,'',26956],[22,'',27912],[23,'',28999],[24,'',28965],[25,'',27826],[26,'',25579],[27,'',25722],[28,'',24826],[29,'',24605],[30,'',24304],[31,'',23464],[32,'',23708],[33,'',24099],[34,'',24357],[35,'',24237],[36,'',24401],[37,'',24344],[38,'',23586],[39,'',22380],[40,'',21004],[41,'',17287],[42,'',14747],[43,'',13076],[44,'',12555],[45,'',12144],[46,'',11009],[47,'',10950],[48,'',10871],[49,'',10824],[50,'',10577],[51,'',10527],[52,'',10475],[53,'',10421],[54,'',10358],[55,'',10295],[56,'',10104]]
+				}],
+				charts : [{
+					dataId : "data1",
+					type : "line",
+					name : "ChartLineDemo",
+					style : {
+						show: true,
+						areaLine:true,
+						lineWidth: 2,			 
+						lineColor: "#00d435",
+						fillColor:"#00d435" ,
+						hoverColor: "#00d435",
+						areaColor: {
+							startColor: "#5000d435",
+							stopColor: "#0000d435"
+						}
+					}
+				},{
+					dataId : "data2",
+					type : "line",
+					name : "ChartLineDemo",
+					style : {
+						show: true,
+						areaLine:true,
+						lineWidth: 2,			 
+						lineColor: "#0050d4",
+						fillColor:"#0050d4" ,
+						hoverLineColor: "#0050d4",
+						areaColor: {
+							startColor: "#500050d4",
+							stopColor: "#000050d4"
+						}
+					}
+				}],
+				coordinate : {
+					xaxis : [{
+						id : "x1",
+						width : 25,
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+						type : "dateTime",
+						startDate : Date.parse(2013,3,4),
+						interval : "5.h",
+						labelAlign : "left"
+					}],
+					yaxis : [{
+						id : "y1",
+						width : 25,
+						show : false,
+						labelFormat : function( text ) {
+							var num = Number(text);
+							var nunit = "";
+							if(num > 1000000) {
+								num = (num / 1000000); 
+								nunit = "KK";
+							}else if( num > 1000 ){
+								num =  (num / 1000);
+								nunit = "K"
+							}
+							num += nunit;
+							return num;
+						},
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+						labelAlign : "lineCenter"
+					}],
+					grid : {
+						gridY : true,
+						gridX : false
+					}
+				},
+				Legend : {
+					id : "legend",
+					show : true,
+					height : 30,
+					width : 100,
+					position : "top",
+					align : "center",
+					css : {
+						font: "normal 14px Arial, Helvetica, sans-serif"
+					},
+					icon : {
+						type : "circle",
+						radius : 5
+					}
+				},
+				ToolTips : {
+					show : true,
+					id : "tooltips",
+					callback : function( data ) {
+						// console.info(data);
+					}
+				},
+				CrossHair : {
+					show : true,
+					id : "crosshair"
+				},
+				TrackingBall : {
+					show : true,
+					id : "trackingball"
+				},
+				Zoom : {
+					show : true,
+					step : 20
+				},
+				Annotation : {
+					show : true
+				}
+			};
+			chart.setOptions(op);
+			chart.draw();
+            chart.setDefaultData({"dataId" : "data1", "index" : 0});
+			$("#moveleft").click(function(){
+				chart.moveLeft();
+			});
+			$("#moveright").click(function(){
+				chart.moveRight();
+			});
+			$("#drawLine").click(function(){
+				chart.drawLine();
+			});
+			$("#drawRect").click(function(){
+				chart.drawRect();
+			});
+			$("#drawEllipse").click(function(){
+				chart.drawEllipse();
+			});
+			$("#drawNote").click(function(){
+				chart.drawNote();
+			});
+		});
+	</script>
+	<body>
+		<button id="moveleft">左移</button> 
+		<button id="moveright">右移</button> 
+		<button id="drawLine">drawLine</button> 
+		<button id="drawRect">drawRect</button> 
+		<button id="drawEllipse">drawEllipse</button> 
+		<button id="drawNote">drawNote</button> 
+		<div id="arc" style="position:absolute; width: 80%; height: 50%;">
+			
+		</div>
+	</body>
+</html>

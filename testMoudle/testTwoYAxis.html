@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Arc</title>
+		<meta name="generator" content="Studio 3 http://aptana.com/">
+		<meta name="author" content="vliu4">
+		<!-- Date: 2012-12-24 -->
+	</head>
+	<script src="../jslib/jquery-1.9.js"></script>
+	<script src="../basicJS/chartRender.js"></script>
+	<script>
+		$(function(){
+			var chart = new LChart.Chart($("#arc"));
+			var op = {
+				type : "series",
+				data : [{
+					xId : "x1",
+					yId : "y1",
+					dataId : "data1",
+					data: [[0,2001, 103,"a"],[1,2002,105,"b"],[2,2003,106,"c"],[3,2004,102,"d"],[4,2005,103,"e"]]
+				}, {
+		         	dataId:"data2",
+		         	xId : "x1",
+					yId : "y2",
+		         	data: [[0,2001,4,"a"],[1,2002,2,"b"],[2,2003,3,"c"],[3,2004,-3,"d"],[4,2005,5,"e"]]
+		      	}, {
+                    dataId:"data3",
+                    xId : "x1",
+                    yId : "y1",
+                    data: [[0,2001,4,"a"],[1,2002,2,"b"],[2,2003,3,"c"],[3,2004,-3,"d"],[4,2005,5,"e"]]
+                }],
+				charts : [{
+					dataId : "data1",
+					type : "bar",
+					name : "barDemoText",
+					style : {
+						show: true,
+						fillColor: "#ff725e",
+						lineWidth: 2,
+						barWidth:10,
+						section:true,
+						space: 0,
+						type : 0,
+						leftSpace: null,
+						desc : {
+							showDesc : true,
+							desc : [],
+							textColor : "#2F4880",
+							descCss : "",
+							decimalNum : 0,
+							left : 0,
+							top : 15
+						}
+					}
+				},{
+					dataId : "data2",
+					type : "line",
+					name : "barDemoText2",
+					style:{
+						lineWidth: 2,			 
+						lineColor: "#1885ff",
+						fillColor: "#1885ff",
+						areaLine: false
+					}
+				},{
+                    dataId : "data3",
+                    type : "line",
+                    name : "barDemoText2",
+                    style:{
+                        lineWidth: 2,
+                        lineColor: "#1885ff",
+                        fillColor: "#1885ff",
+                        areaLine: false
+                    }
+                }],
+				coordinate : {
+					xaxis : [{
+						id : "x1",
+						width : 25,
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+						calibration: [[0,"Oceania"],[1,"Europe"],[2,"Asia"],[3,"America"],[4,"Africa"],[5,""]],
+						labelAlign : "center"
+					}],
+					yaxis : [{
+						id : "y1",
+						width : 25,
+						show : false,
+						//calibration: [[-5,-5],[0, "0", "#ff3c00"],[5,5],[10,10],[15,15],[20,20]],
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+						labelAlign : "lineCenter"
+					},{
+						id : "y2",
+						width : 25,
+						show : false,
+						position : 2,
+						//calibration: [[-5,-5],[0,"0", "#ff3c00", 2],[5,5],[10,10],[15,15],[20,20]],
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+						labelAlign : "lineCenter"
+					}],
+					grid : {
+						gridY : true,
+						gridX : false
+					}
+				},
+				Legend : {
+					id : "legend",
+					show : true,
+					height : 30,
+					width : 100,
+                    valueWidth : 60,
+					position : "top",
+                    align : "center",
+					css : {
+						font: "normal 14px Arial, Helvetica, sans-serif"
+					},
+					icon : {
+						type : "circle",
+						radius : 5
+					}
+				}
+			};
+			chart.setOptions(op);
+			chart.draw();
+		});
+	</script>
+	<body>
+		<div id="arc" style="position:absolute; width: 80%; height: 80%;">
+			
+		</div>
+	</body>
+</html>

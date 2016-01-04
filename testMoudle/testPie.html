@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Arc</title>
+		<meta name="generator" content="Studio 3 http://aptana.com/">
+		<meta name="author" content="vliu4">
+		<!-- Date: 2012-12-24 -->
+	</head>
+	<script src="../jslib/jquery-1.9.js"></script>
+	<script src="../jslib/hammer.js"></script>
+	<script src="../basicJS/chartRender.js"></script>
+	<script>
+		$(function(){
+			var chart = new LChart.Chart($("#arc"));
+			var op = {
+				type : "pie",
+				data : [["invest 0", 100, "#FF9100"],["invest 1", 0, "#DFD801"]],
+				chart : {
+					showBorder : true,
+					borderColor : "#fff",
+					showTotal : false,
+					align : "left",
+					totalText : "总数:$17.4M",
+					click : function( data ) {
+						console.info(data);
+					}
+				},
+				Legend : {
+					id : "legend",
+					show : true,
+					height : 60,
+					position : "top",
+					align : "center",
+					css : {
+						font: "normal 14px Arial, Helvetica, sans-serif"
+					},
+					icon : {
+						type : "circle",
+						radius : 5
+					}
+				}
+			};
+			chart.setOptions(op);
+			chart.draw();
+		});
+	</script>
+	<body>
+		<div id="arc" style="position:absolute; width: 80%; height: 50%;">
+			
+		</div>
+	</body>
+</html>

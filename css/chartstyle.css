@@ -1,0 +1,54 @@
+.ui-height-16 {
+	height:25px;
+	width:100%;
+	color:#767676;
+	line-height:25px;
+	padding-top: 5px;
+	text-align: center;
+}
+
+.ui-red {
+	display:inline-block;
+	width:16px;
+	height:16px;
+	background:#DF5353;
+	border:1px solid #DF5353;
+}
+
+.ui-red-des {
+	display:inline-block;
+	color:#767676;
+	font-size:11px;
+	margin-right:10px;
+	width:25px;
+}
+.ui-yellow {
+	display:inline-block;
+	width:16px;
+	height:16px;
+	background:#DDDF0D;
+	border:1px solid #DDDF0D;
+}
+
+.ui-yellow-des {
+	display:inline-block;
+	color:#767676;
+	font-size:11px;
+	margin-right:10px;
+	width:25px;
+}
+
+.ui-green {
+	display:inline-block;
+	width:16px;
+	height:16px;
+	background:#55BF3B;
+	border:1px solid #55BF3B;
+}
+
+.ui-green-des {
+	display:inline-block;
+	color:#767676;
+	font-size:11px;
+	width:25px;
+}

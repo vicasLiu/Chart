@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Arc</title>
+		<meta name="generator" content="Studio 3 http://aptana.com/">
+		<meta name="author" content="vliu4">
+		<!-- Date: 2012-12-24 -->
+	</head>
+	<script src="../jslib/jquery-1.9.js"></script>
+	<script src="../basicJS/chartRender.js"></script>
+	<script>
+		$(function(){
+			var chart = new LChart.Chart($("#arc"));
+			var op = {
+				type : "series",
+				data : [{
+					xId : "x1",
+					yId : "y1",
+					dataId : "data1",
+					data: [[-3,2001,0,"a"],[7,2002,1,"b"],[5,2003,2,"c"],[8,2004,3,"d"],[6,2005,4,"e"]]
+				}, {
+		         	dataId:"data2",
+		         	xId : "x1",
+					yId : "y1",
+		         	data: [[-2,2001,0,"a"],[3,2002,1,"b"],[3,2003,2,"c"],[3,2004,3,"d"],[2,2005,4,"e"]]
+		      	}],
+				charts : [{
+					dataId : "data1",
+					type : "column",
+					style : {
+						show: true,
+						fillColor: "#ff725e",
+						lineWidth: 2,
+						barWidth:10,
+						section:true,
+						space: 0,
+						type : 0,
+						leftSpace: null,
+						desc : {
+							showDesc : true,
+							desc : [],
+							textColor : "#2F4880",
+							descCss : "",
+							decimalNum : 0,
+							left : 0,
+							top : 15
+						}
+					}
+				},{
+					dataId : "data2",
+					type : "column",
+					style:{
+						show:true,
+						fillColor: "#61c4ff",
+						barWidth:10,
+						section:true,
+						space: 0,
+						leftSpace: null,
+						type : 0,
+						desc : {
+							showDesc : true,
+							desc : [],
+							descCss : "",
+							decimalNum : 0,
+							left : 0,
+							textColor : "#A6BC09",
+							top : 15
+						}
+					}
+				}],
+				coordinate : {
+					xaxis : [{
+						id : "x1",
+						width : 25,
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+                        type : "stacked",
+//						calibration: [[-4,1999],[-2,2000],[0,2001],[2,2002],[4,2003],[6,2004],[8,2005],[10," "]],
+						labelAlign : "left"
+					}],
+					yaxis : [{
+						id : "y1",
+						width : 25,
+						labelEllipsis : true,
+						show : false,
+						calibration: [[0,"Oceania"],[1,"Europe"],[2,"Asia"],[3,"America"],[4,"Africa"],[5,""]],
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+						labelAlign : "center"
+					}],
+					grid : {
+						gridY : true,
+						gridX : true
+					}
+				}
+			};
+			chart.setOptions(op);
+			chart.draw();
+		});
+	</script>
+	<body>
+		<div id="arc" style="position:absolute; width: 80%; height: 80%;">
+			
+		</div>
+	</body>
+</html>

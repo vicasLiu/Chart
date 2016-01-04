@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Arc</title>
+		<meta name="generator" content="Studio 3 http://aptana.com/">
+		<meta name="author" content="vliu4">
+		<!-- Date: 2012-12-24 -->
+	</head>
+	<script src="../jslib/jquery-1.9.js"></script>
+	<script src="../basicJS/chartRender.min.js"></script>
+	<script>
+		$(function(){
+			var chart = new LChart.Chart($("#arc"));
+			var op = {
+				type : "series",
+				data : [{
+					xId : "x1",
+					yId : "y1",
+					dataId : "total",
+					data: [[0,2001, 3,"a"],[1,2002,5,"b"],[2,2003,6,"c"],[3,2004,2,"d"],[4,2005,3,"e"],[5,"2006", 4], [6, "2007", 6], [7, "2008", 7], [8, "2009", 5], [9, "2010", 4], [10, "2011", 4], [11, "2012", 5], [12, "2013", 6]]
+				}],
+				charts : [{
+					dataId : "total",
+					type : "bar",
+					name : "实际",
+					style : {
+						show: true,
+						fillColor: "#ff725e",
+						hoverLineColor : "#2F4880",
+						lineWidth: 2,
+						barWidth:10,
+						section:true,
+						space: 0,
+						type : 0,
+						leftSpace: null,
+						desc : {
+							showDesc : false,
+							desc : [],
+							textColor : "#2F4880",
+							descCss : "",
+							decimalNum : 0,
+							left : 0,
+							top : 15
+						}
+					}
+				}],
+				coordinate : {
+					xaxis : [{
+						id : "x1",
+						width : 25,
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+						type : "customer|bar",
+						// calibration: [[0,"2001"],[1,"2002"],[2,"2003"],[3,"2004"],[4,"2005"],[5,"2006"],[6,"2007"],[7,"2008"],[8,"2009"],[9,"2010"],[10,"2011"],[11,"2012"],[12,"2013"],[13," "]],
+						labelAlign : "center"
+					}],
+					yaxis : [{
+						id : "y1",
+						width : 25,
+						show : false,
+						showMarker : false,
+						shortLine : 25,
+						//calibration: [[0,0],[2,2],[4,4],[6,6],[8,8],[10,10]],
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+						labelAlign : "lineCenter"
+					}],
+					grid : {
+						gridY : true,
+						gridX : false
+					}
+				},
+				Legend : {
+					id : "legend",
+					show : true,
+					height : 30,
+					width : 100,
+					position : "top",
+					valueWidth : 50,
+					css : {
+						font: "normal 14px Arial, Helvetica, sans-serif"
+					},
+					icon : {
+						type : "circle",
+						radius : 5
+					}
+				},
+				ToolTips : {
+					id : "tooltips",
+					callback : function( data ) {
+						var obj = data.s[0];
+						var className = obj.dataId;
+						$("#arc").find("."+className).html((obj.xvalue+obj.yvalue));
+					}
+				},
+				Zoom : {
+					show : true,
+					step : 5
+				}
+			};
+			chart.setOptions(op);
+			chart.draw();
+			$("#moveleft").click(function(){
+				chart.moveLeft();
+			});
+			$("#moveright").click(function(){
+				chart.moveRight();
+			});
+		});
+	</script>
+	<body>
+		<button id="moveleft">左移</button> 
+		<button id="moveright">右移</button> 
+		<div id="arc" style="position:absolute; width: 80%; height: 80%;">
+			
+		</div>
+	</body>
+</html>

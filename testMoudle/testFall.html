@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Arc</title>
+		<meta name="generator" content="Studio 3 http://aptana.com/">
+		<meta name="author" content="vliu4">
+		<!-- Date: 2012-12-24 -->
+	</head>
+	<script src="../jslib/jquery-1.9.js"></script>
+	<script src="../basicJS/chartRender.js"></script>
+	<script>
+		$(function(){
+			var chart = new LChart.Chart($("#arc"));
+			var op = {
+				type : "series",
+				data : [{
+					xId : "x1",
+					yId : "y1",
+					dataId : "total",
+					data: [[0,2001, 100],[1,2002,20],[2,2003,40],[3,2004,10],[4,2005,30]]
+				}],
+				charts : [{
+					dataId : "total",
+					type : "fall",
+					name : "瀑布图实例",
+					style : {
+						show: true,
+						fillColor: "#87cefa",
+						hoverColor : "#2F4880",
+						lineWidth: 2,
+						barWidth:10,
+						section:true,
+						space: 0,
+						type : 0,
+						leftSpace: null
+					}
+				}],
+				coordinate : {
+					xaxis : [{
+						id : "x1",
+						width : 25,
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+						calibration: [[0,"总支出"],[1,"生活用品"],[2,"话费"],[3,"水果"],[4,"零食"],[5,""]],
+						labelAlign : "center"
+					}],
+					yaxis : [{
+						id : "y1",
+						width : 25,
+						show : false,
+						showMarker : false,
+						shortLine : 25,
+						calibration: [[0,0],[20,20],[40,40],[60,60],[80,80],[100,100]],
+						labelCss : {
+							font: "normal 10px Arial, Helvetica, sans-serif"
+						},
+						labelAlign : "lineCenter"
+					}],
+					grid : {
+						gridY : true,
+						gridX : false
+					}
+				},
+				Legend : {
+					id : "legend",
+					show : true,
+					height : 30,
+					width : 100,
+					position : "top",
+					valueWidth : 0,
+					css : {
+						font: "normal 14px Arial, Helvetica, sans-serif"
+					},
+					icon : {
+						type : "circle",
+						radius : 5
+					}
+				},
+				ToolTips : {
+					id : "tooltips",
+					show : true,
+					callback : function( data ) {
+						var obj = data.s[0];
+						var className = obj.dataId;
+						$("#arc").find("."+className).html((obj.xvalue+obj.yvalue));
+					}
+				}
+			};
+			chart.setOptions(op);
+			chart.draw();
+		});
+	</script>
+	<body>
+		<div id="arc" style="position:absolute; width: 80%; height: 80%;">
+			
+		</div>
+	</body>
+</html>
