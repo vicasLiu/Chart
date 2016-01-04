@@ -1,0 +1,16 @@
+{
+  "data" : [{
+    "clusterId":2483,"clusterName":"ap-transcore", "key" : "sum"
+  },{
+    "clusterId" : 2477, "clusterName":"ap-customer"
+  },{
+    "clusterId" : 2485, "clusterName":"ap-payin"
+  },{
+    "clusterId" : 2479, "clusterName":"ap-account"
+  },{
+    "clusterId" : 2481, "clusterName":"ap-accountant"
+  },{
+    "clusterId" : 2487, "clusterName":"ap-payout"
+  }],
+  "timegap" : 300000
+}
