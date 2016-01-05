@@ -6067,6 +6067,9 @@ LChart.International.prototype = {
                     };
                     return $.extend(true, {}, defaultOp, options);
                 };
+                var calBarLinePoints = function( obj ) {
+                    //增加柱状性线图
+                };
                 var calTheLinePoints = function(obj, yMapping, op){
                     //var op = lineObj.options;
                     if(op.areaLine){
