@@ -2128,8 +2128,7 @@ LChart.International.prototype = {
                         re.push([calibration, calibration+""]);
                     }
                     circle=false;
-                }
-                else{
+                }else{
                     re.push([calibration, calibration+""]);
                 }
                 i++;
@@ -2983,9 +2982,9 @@ LChart.International.prototype = {
             var rect = SVGElement.createElement("rect",{
                 "fill" : "none",
                 "x" : "0",
-                "y" : "0",
+                "y" : "-5",
                 "width" : "0",
-                "height" : h
+                "height" : h+5
             });
             cp.appendChild(rect);
             $(cp).appendTo($(elem));
@@ -3117,7 +3116,7 @@ LChart.International.prototype = {
             return path;
         },
         drawPolygon : function( svgDoc, ptCollection, strokeWidth, strokeColor, fillColor ) {
-            this.drawPath(svgDoc, ptCollection, strokeWidth, strokeColor, fillColor, true);
+            this.drawPath(svgDoc, ptCollection, strokeWidth, strokeColor, fillColor, false);
         },
         drawBar : function( svgDoc, ptCollection, strokeWidth, strokeColor, fillColor ) {
             console.info(fillColor);
@@ -3452,11 +3451,11 @@ LChart.International.prototype = {
                 }
 
             } else {
-                stop1.setAttributeNS(null, 'style', 'stop-color : ' + topColor + ";stop-opacity:0.5");
+                stop1.setAttributeNS(null, 'style', 'stop-color : ' + topColor + ";stop-opacity:0.8");
                 stop1.setAttributeNS(null, 'offset',  0);
             }
             stop2.setAttributeNS(null, 'offset',  1);
-            stop2.setAttributeNS(null, 'style',  'stop-color : ' + bottomColor +';stop-opacity:0;');
+            stop2.setAttributeNS(null, 'style',  'stop-color : ' + bottomColor +';stop-opacity:0.8;');
             lineargradient.appendChild(stop2);
             return "url(#" + id + ")";
         },
@@ -5657,6 +5656,7 @@ LChart.International.prototype = {
                     if( gap == -1 && text == "" ) {
                         continue;
                     }else if( gap == -1 ){
+                        console.info(text);
                         p = {
                             sx : point[j][0] - obj.w,
                             y : point[j][3]+obj.h,
@@ -6067,11 +6067,34 @@ LChart.International.prototype = {
                     };
                     return $.extend(true, {}, defaultOp, options);
                 };
-                var calBarLinePoints = function( obj ) {
-                    //增加柱状性线图
+                var calThebarPoints = function(obj) {
+                    var style = obj.style;
+                    var orginPt = obj.pt;
+                    if( style.type == "bar" ) {
+                        var _tempDT = [];
+                        for( var i = 0; i < orginPt.length; i++ ) {
+                            console.info(orginPt[i]);
+                            if( i == 0 ) {
+                                _tempDT.push(orginPt[i]);
+                            }else if(i == orginPt.length -1 ) {
+                                _tempDT.push(orginPt[i]);
+                            } else{
+                                _tempDT.push({
+                                    x : orginPt[i].x, 
+                                    y : orginPt[i-1].y
+                                });
+                                _tempDT.push(orginPt[i]);
+                            }
+                        }
+                        obj.pt = _tempDT;
+                    }else{
+                        _tempDT = obj.pt;
+                    }
+                    return _tempDT;
                 };
                 var calTheLinePoints = function(obj, yMapping, op){
                     //var op = lineObj.options;
+                    console.info(obj);
                     if(op.areaLine){
                         var ptCollection = [];
                         var pt = obj.pt;
@@ -6117,6 +6140,7 @@ LChart.International.prototype = {
                     if(pt == null || pt.length == 0){
                         return;
                     }
+                    pt = calThebarPoints(data);
                     graphic.drawPolyline(pt, op.lineWidth, JColor.parse(op.lineColor).toString());
                 };
                 var drawArea = function( obj, op ) {
@@ -7048,6 +7072,9 @@ LChart.International.prototype = {
                             });
                         }
                         for(var i = _l; i < ptdraw.length; i++){
+                            // if( STACKINDEX == 0 && i == ptdraw.length-1 ) {
+                            //     break;
+                            // }
                             _pt.push({
                                 x: ptdraw[i-1].x,
                                 y: ptdraw[i].y
