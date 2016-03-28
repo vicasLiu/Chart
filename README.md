@@ -37,3 +37,32 @@ demo：  'demo/testBar.html',  //纵向基本的柱状图
         }
     }
 }
+#线图
+demo：  'demo/test.html',  
+        'demo/testLine.html'
+配置：
+{
+    dataId : "data1", //匹配的图形数据ID
+    type : "line", // 图形的类型
+    name : "ChartLineDemo", // 图形显示的图列名称
+    style : {
+        areaLine:true,  //是否需要填充
+        lineWidth: 2, //线宽			  
+        lineColor: "#00d435",  //线的颜色
+        hoverColor: "#00d435", //hover时候的颜色
+        areaColor: {  // 填充色
+            startColor: "#5000d435",
+            stopColor: "#0000d435"
+        },
+        marker: {  
+            show: false,  //每个数据点上是否要显示marker
+            showDesc : false,  //是否需要显示描述文字
+            textColor : "#666",  // 字体的颜色
+            shape: 2, // 1, 圆  2, 矩形
+            width: 8, //矩形的宽
+            height: 8, //矩形的高
+            radius : 2, //圆的半径
+            color: "#000000" //填充的颜色
+        }
+    }
+}
