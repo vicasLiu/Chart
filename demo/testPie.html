@@ -16,22 +16,16 @@
 			var chart = new LChart.Chart($("#arc"));
 			var op = {
 				type : "pie",
-				data : [["invest 0", 100, "#FF9100"],["invest 1", 0, "#DFD801"]],
+				data : [["invest 0", 50, "#FF9100"],
+					["invest 1", 10, "#00D435"]],
 				chart : {
-					showBorder : true,
-					borderColor : "#fff",
-					showTotal : false,
-					align : "left",
-					totalText : "总数:$17.4M",
-					click : function( data ) {
-						console.info(data);
-					}
+	                align : "left"
 				},
 				Legend : {
 					id : "legend",
 					show : true,
-					height : 60,
-					position : "top",
+					width : 160,
+					position : "right",
 					align : "center",
 					css : {
 						font: "normal 14px Arial, Helvetica, sans-serif"
@@ -48,7 +42,7 @@
 	</script>
 	<body>
 		<div id="arc" style="position:absolute; width: 80%; height: 50%;">
-			
+
 		</div>
 	</body>
 </html>

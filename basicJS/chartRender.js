@@ -63,14 +63,14 @@ LChart.International.prototype = {
     },
     format : function(dt,format){
         var o = {
-            "M+" : dt.getMonth()+1, //month   
-            "D+" : dt.getDate(),    //day   
-            "h+" : dt.getHours(),   //hour   
-            "m+" : dt.getMinutes(), //minute   
-            "s+" : dt.getSeconds(), //second   
+            "M+" : dt.getMonth()+1, //month
+            "D+" : dt.getDate(),    //day
+            "h+" : dt.getHours(),   //hour
+            "m+" : dt.getMinutes(), //minute
+            "s+" : dt.getSeconds(), //second
             "w" : dt.getDay(),
             "q+" : Math.floor((dt.getMonth()+3)/3),
-            "S" : dt.getMilliseconds() //millisecond   
+            "S" : dt.getMilliseconds() //millisecond
         }
         if(/(Y+)/.test(format)){
             format=format.replace(RegExp.$1, (dt.getFullYear()+"").substr(4 - RegExp.$1.length));
@@ -109,13 +109,13 @@ LChart.International.prototype = {
         }else{
             var o = {
                 "y" : d.getFullYear(),
-                "M" : d.getMonth()+1, //month   
-                "d" : d.getDate(),    //day   
-                "h" : d.getHours(),   //hour   
-                "m" : d.getMinutes(), //minute   
-                "s" : d.getSeconds(), //second 
+                "M" : d.getMonth()+1, //month
+                "d" : d.getDate(),    //day
+                "h" : d.getHours(),   //hour
+                "m" : d.getMinutes(), //minute
+                "s" : d.getSeconds(), //second
                 "w" : d.getDay(),
-                "S" : d.getMilliseconds() //millisecond   
+                "S" : d.getMilliseconds() //millisecond
             } ;
             if(o["m"] < 10){
                 o["m"] = "0" + o["m"];
@@ -128,7 +128,7 @@ LChart.International.prototype = {
             var tstr = "";
             var gsLang = "enu";
             var gaLang = new Array();
-            // enu 
+            // enu
             gaLang["enu"] = [];
             gaLang["enu"]["months"] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             gaLang["enu"]["shortMonths"] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -2128,7 +2128,8 @@ LChart.International.prototype = {
                         re.push([calibration, calibration+""]);
                     }
                     circle=false;
-                }else{
+                }
+                else{
                     re.push([calibration, calibration+""]);
                 }
                 i++;
@@ -2982,9 +2983,9 @@ LChart.International.prototype = {
             var rect = SVGElement.createElement("rect",{
                 "fill" : "none",
                 "x" : "0",
-                "y" : "-5",
+                "y" : "0",
                 "width" : "0",
-                "height" : h+5
+                "height" : h
             });
             cp.appendChild(rect);
             $(cp).appendTo($(elem));
@@ -3116,7 +3117,7 @@ LChart.International.prototype = {
             return path;
         },
         drawPolygon : function( svgDoc, ptCollection, strokeWidth, strokeColor, fillColor ) {
-            this.drawPath(svgDoc, ptCollection, strokeWidth, strokeColor, fillColor, false);
+            this.drawPath(svgDoc, ptCollection, strokeWidth, strokeColor, fillColor, true);
         },
         drawBar : function( svgDoc, ptCollection, strokeWidth, strokeColor, fillColor ) {
             console.info(fillColor);
@@ -3451,11 +3452,11 @@ LChart.International.prototype = {
                 }
 
             } else {
-                stop1.setAttributeNS(null, 'style', 'stop-color : ' + topColor + ";stop-opacity:0.8");
+                stop1.setAttributeNS(null, 'style', 'stop-color : ' + topColor + ";stop-opacity:0.5");
                 stop1.setAttributeNS(null, 'offset',  0);
             }
             stop2.setAttributeNS(null, 'offset',  1);
-            stop2.setAttributeNS(null, 'style',  'stop-color : ' + bottomColor +';stop-opacity:0.8;');
+            stop2.setAttributeNS(null, 'style',  'stop-color : ' + bottomColor +';stop-opacity:0;');
             lineargradient.appendChild(stop2);
             return "url(#" + id + ")";
         },
@@ -5301,7 +5302,7 @@ LChart.International.prototype = {
                     // ctx.drawLine( s, e, "#ccc", 1 );
                 },function(e){
                     if( startPoint != null ) {
-                        //ptCollection, strokeWidth, strokeColor 
+                        //ptCollection, strokeWidth, strokeColor
                         var d = " L " + e.x + " " + e.y;
                         if( lineEl == null ) {
                             lineEl = ctx.drawPolyline( ptCollection, 3 , "#f30");
@@ -5334,9 +5335,6 @@ LChart.International.prototype = {
         Publisher.subscribe("drawNote", function( arg ){
             self.drawNote( arg );
         }, self);
-    };
-    Components.Title = function( container, pointer ) {
-        
     };
     /**/
     /*COORDINATE*/
@@ -5656,7 +5654,6 @@ LChart.International.prototype = {
                     if( gap == -1 && text == "" ) {
                         continue;
                     }else if( gap == -1 ){
-                        console.info(text);
                         p = {
                             sx : point[j][0] - obj.w,
                             y : point[j][3]+obj.h,
@@ -6067,34 +6064,8 @@ LChart.International.prototype = {
                     };
                     return $.extend(true, {}, defaultOp, options);
                 };
-                var calThebarPoints = function(obj) {
-                    var style = obj.style;
-                    var orginPt = obj.pt;
-                    if( style.type == "bar" ) {
-                        var _tempDT = [];
-                        for( var i = 0; i < orginPt.length; i++ ) {
-                            console.info(orginPt[i]);
-                            if( i == 0 ) {
-                                _tempDT.push(orginPt[i]);
-                            }else if(i == orginPt.length -1 ) {
-                                _tempDT.push(orginPt[i]);
-                            } else{
-                                _tempDT.push({
-                                    x : orginPt[i].x, 
-                                    y : orginPt[i-1].y
-                                });
-                                _tempDT.push(orginPt[i]);
-                            }
-                        }
-                        obj.pt = _tempDT;
-                    }else{
-                        _tempDT = obj.pt;
-                    }
-                    return _tempDT;
-                };
                 var calTheLinePoints = function(obj, yMapping, op){
                     //var op = lineObj.options;
-                    console.info(obj);
                     if(op.areaLine){
                         var ptCollection = [];
                         var pt = obj.pt;
@@ -6140,7 +6111,6 @@ LChart.International.prototype = {
                     if(pt == null || pt.length == 0){
                         return;
                     }
-                    pt = calThebarPoints(data);
                     graphic.drawPolyline(pt, op.lineWidth, JColor.parse(op.lineColor).toString());
                 };
                 var drawArea = function( obj, op ) {
@@ -7072,9 +7042,6 @@ LChart.International.prototype = {
                             });
                         }
                         for(var i = _l; i < ptdraw.length; i++){
-                            // if( STACKINDEX == 0 && i == ptdraw.length-1 ) {
-                            //     break;
-                            // }
                             _pt.push({
                                 x: ptdraw[i-1].x,
                                 y: ptdraw[i].y
@@ -7995,18 +7962,11 @@ LChart.International.prototype = {
             if(!$.isArray(data)){
                 return;
             };
-            this.data = data;
             var beginArc = -0.5; // * Math.PI;
-            var centerBArc = -0.5;
-            var centerEArc = 1.50
-            var center = [];
-            var endArc = 1.50; // * Math.PI;
-            var total = 0;
-            this.busiData = [];
-            var radius = this.radius;
-            var ptCenter = this.getCenter();
-            var rotate = [];
-            var me = this;
+			var endArc = 1.50; // * Math.PI;
+			var total = 0;
+			this.busiData = [];
+			var me = this;
             $.each(data, function(i, c) {
                 floatValue = parseFloat(data[i][1]);
                 if (isNaN(floatValue)) {
@@ -8015,39 +7975,34 @@ LChart.International.prototype = {
                 data[i][1] = floatValue;
                 total += data[i][1];
             });
-            var angle = 0;
-            var arcDegree = data[0][1] / total * 2;
-            beginArc = beginArc - arcDegree * 0.5;
+            // var angle = 0;
+            // var arcDegree = data[0][1] / total * 2;
+            // beginArc = beginArc - arcDegree * 0.5;
             endArc = beginArc;
-            centerEArc = centerBArc;
-            this.calDataAngle(total);
-            var self = this;
-            var beginAngle = 0, percent
-                , endAngle;
+            // centerEArc = centerBArc;
+            // this.calDataAngle(total);
+            // var self = this;
+            // var beginAngle = 0, percent
+            //     , endAngle;
             $.each(data, function(i, c) {
                 if( data[i][1]!=0 ){
-                    percent = data[i][1] / total;
-                    endAngle = beginAngle + 2 * Math.PI * percent;
-                    var pecentage = ((data[i][1] / total).toFixed(2)) + "%";
                     var arcDegree = c[1] / total * 2;
                     endArc += arcDegree;
-                    centerEArc += arcDegree;
-                    angle = ((endArc) * 180);
                     me.busiData.push([
                         data[i][0],
                         data[i][1],
                         JColor.parse(data[i][2]),
-                            beginArc * Math.PI,
-                            endArc * Math.PI,
-                            (endArc - arcDegree*0.5)* Math.PI,
-                        pecentage,
-                            centerBArc * Math.PI,
-                            (centerEArc - arcDegree)* Math.PI
+                        beginArc * Math.PI,
+                        endArc * Math.PI,
+                        (endArc - arcDegree*0.5)* Math.PI,
+                        // pecentage,
+                        // centerBArc * Math.PI,
+                        // (centerEArc - arcDegree)* Math.PI
                     ]);
-                    self.rotate[self.rotate.length] = [beginAngle * 180 / Math.PI, endAngle * 180 / Math.PI];
+                    // self.rotate[self.rotate.length] = [beginAngle * 180 / Math.PI, endAngle * 180 / Math.PI];
                     beginArc = endArc;
-                    centerBArc = centerEArc;
-                    beginAngle = endAngle;
+                    // centerBArc = centerEArc;
+                    // beginAngle = endAngle;
                 }
             });
         },
@@ -8059,6 +8014,7 @@ LChart.International.prototype = {
             };
             this.options = opts;
             this.setData(data);
+            this.data = data;
             if( opts.align == "center" ) {
                 var w = this._canvasRef.width(),h = this._canvasRef.height(), r= this.radius;
                 var lf = (w) * 0.5 - r;
@@ -8081,9 +8037,9 @@ LChart.International.prototype = {
                 // ptCenter, radius, beginArc, endArc, strokeColor, strokeWidth, fillColor
                 self._graphics.drawArc(ptCenter, self.radius, temp[3], temp[4], JColor.parse("#60cccccc").toString(), 0, temp[2].toString());
             }
-            this.drawBottomText();
+            // this.drawBottomText();
             //this.drawBg();
-            this.drawInsideC();
+            // this.drawInsideC();
             this.bindEvent();
         },
         clear : function() {
@@ -8204,16 +8160,17 @@ LChart.International.prototype = {
                 }
             };
             if(i==0){
-                click.call( this, clickData );
+                if( $.isFunction(click) )  {
+                    click.call( this, clickData );
+                }
                 return;
             }
             var angle = self.calAngle(i);
             value = angle;
-            //knd.nativeAudio('pieSwitch');
-            $(self.chartGroup).rotate({animateTo:value});
-            setTimeout(function(){
-                self.reDraw(clickData);
-            },1000);
+            // $(self.chartGroup).rotate({animateTo:value});
+            // setTimeout(function(){
+            //     self.reDraw(clickData);
+            // },1000);
             if($.isFunction(click)){
                 click.call( this, clickData )
             };
@@ -8230,8 +8187,8 @@ LChart.International.prototype = {
                 "-webkit-transform-origin": ""+center.x+" "+center.y+"",
                 "transform-origin" : ""+center.x+" "+center.y+""
             });
-            var hammer = new Hammer(hammerContainer);
-            hammer.on('touch release dragleft dragright dragup dragdown swipeleft swiperight swipeup swipedown', handler);
+            // var hammer = new Hammer(hammerContainer);
+            // hammer.on('touch release dragleft dragright dragup dragdown swipeleft swiperight swipeup swipedown', handler);
             function handler( ev ) {
                 var currentTarget = ev.currentTarget
                     , currRotate = turntable.currRotate
