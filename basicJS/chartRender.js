@@ -7910,8 +7910,8 @@ LChart.International.prototype = {
             return this.$pointer;
         },
         createHolder : function() {
-            //this.bgGroup = CT.createGroup(this.targetHolder, "bgGraph", "none", 0, "none");
-            //this.btGraphic = new Graphics(this.bgGroup);
+            this.bgGroup = CT.createGroup(this.targetHolder, "bgGraph", "none", 0, "none");
+            this.btGraphic = new Graphics(this.bgGroup);
             var chartObj = getChartObj(this.$pointer);
             this.chartGroup = CT.createGroup(this.targetHolder, "graph", "none", 0, "none");
             this.iconGroup = CT.createGroup(this.targetHolder, "iconGraph", "none", 0, "none");
@@ -8038,8 +8038,8 @@ LChart.International.prototype = {
                 self._graphics.drawArc(ptCenter, self.radius, temp[3], temp[4], JColor.parse("#60cccccc").toString(), 0, temp[2].toString());
             }
             // this.drawBottomText();
-            //this.drawBg();
-            // this.drawInsideC();
+            this.drawBg();
+            this.drawInsideC();
             this.bindEvent();
         },
         clear : function() {
@@ -8085,9 +8085,12 @@ LChart.International.prototype = {
         },
         drawInsideC : function() {
             var op = this.options;
+            if( op.showInside == undefined || !op.showInside ) {
+                return;
+            }
             var it = op.totalText;
             var its = it.split(":");
-            this.insideGraphic.drawCircle(this.getCenter(), this.radius * 0.4, "#ccc", 0, "#fff", 0.3);
+            this.insideGraphic.drawCircle(this.getCenter(), this.radius * 0.5, "#ccc", 0, op.insideColor, op.insideOpa);
             var top = -20;
         },
         reDraw : function( currentData ) {
