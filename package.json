@@ -1,0 +1,19 @@
+{
+  "name": "lchart",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vicasliu/lchart.git"
+  },
+  "author": "liusiwei",
+  "license": "MIT",
+  "devDependencies": {
+    
+  },
+  "dependencies": {}
+}
