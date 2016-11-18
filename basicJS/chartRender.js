@@ -8,9 +8,6 @@
  * @desc LChart基于SVG，纯Javascript图表库，提供直观，生动，可交互，可个性化定制的数据统计图表。
  * @author liusiwei (@liusiwei-刘思伟, siwei.liu6@gmail.com)
  */
-if(!LChart){
-    var LChart = {};
-};
 /**
  * basic animation function
  */
@@ -30,7 +27,7 @@ if(!LChart){
         };
     }
 }());
-var INSTANCE;
+var INSTANCE, LChart = {};
 LChart.International = function(){
     if( INSTANCE ){
         return INSTANCE;
@@ -9378,3 +9375,10 @@ LChart.International.prototype = {
     /******/
     LChart.Chart = Chart;
 }(window));
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.i18n = factory());
+}(this, function () { 'use strict';
+    return LChart;
+}));
