@@ -4165,21 +4165,21 @@ LChart.International.prototype = {
                 p = {
                     sx : cdn[0],
                     y : cdn[3]+obj.h,
-                    ex : cdn[0]+obj.w
+                    ex : cdn[0]+obj.w + (obj.w*0.5)
                 }
                 break;
             case "center" :
                 p = {
                     sx : (size - obj.w) * 0.5 + cdn[0],
                     y : cdn[3]+obj.h,
-                    ex : (size - obj.w) * 0.5 + cdn[0]+obj.w
+                    ex : (size - obj.w) * 0.5 + cdn[0]+obj.w + (obj.w*0.5)
                 };
                 break;
             case "right" :
                 p = {
                     sx : cdn[0]-obj.w,
                     y : cdn[3]+obj.h,
-                    ex : cdn[0]
+                    ex : cdn[0] + (obj.w*0.5)
                 };
                 break;
         };
@@ -7960,10 +7960,10 @@ LChart.International.prototype = {
                 return;
             };
             var beginArc = -0.5; // * Math.PI;
-			var endArc = 1.50; // * Math.PI;
-			var total = 0;
-			this.busiData = [];
-			var me = this;
+            var endArc = 1.50; // * Math.PI;
+            var total = 0;
+            this.busiData = [];
+            var me = this;
             $.each(data, function(i, c) {
                 floatValue = parseFloat(data[i][1]);
                 if (isNaN(floatValue)) {
@@ -9375,10 +9375,3 @@ LChart.International.prototype = {
     /******/
     LChart.Chart = Chart;
 }(window));
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global.i18n = factory());
-}(this, function () { 'use strict';
-    return LChart;
-}));
